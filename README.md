@@ -9,3 +9,6 @@ Add [acf_form] shortcode for front end ACF forms.
 
 ### dave-acf-events-columns.php
 Hook Admin Columns plugin to display custom data.
+
+### dave-acf-events-debug-box.php
+Debug metabox and Javascript parse exampe for ACF.
