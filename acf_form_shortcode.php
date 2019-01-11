@@ -1,3 +1,5 @@
+<?php
+
 //* Add required acf_form_head() function to head of page
 function am_do_acf_form_head() {
 	if ( !is_admin() )
@@ -6,11 +8,11 @@ function am_do_acf_form_head() {
 add_action( 'get_header', 'am_do_acf_form_head', 1 );
 
 //* Add custom body class to the head
-function acf_form_class( $classes ) {
+function am_acf_form_class( $classes ) {
 	$classes[] = 'acf-form-front';
 	return $classes;
 }
-add_filter( 'body_class', 'acf_form_class' );
+add_filter( 'body_class', 'am_acf_form_class' );
 
 //* ACF Form Short Code
 function am_sc_acf_form( $attr ) {
@@ -19,7 +21,9 @@ function am_sc_acf_form( $attr ) {
   $post_id = $_GET['postid'];
   $title   = ( $attr['title'] == 1 ) || ( $attr['title'] == 'y' ) || ( $attr['title'] == 'yes' );
   $content = ( $attr['content'] == 1 ) || ( $attr['content'] == 'y' ) || ( $attr['content'] == 'yes' );
-  $submit  = 'submit';
+  $label   = $attr['label_placement'];
+  $submit  = ( isset( $attr['submit'] ) ) ? $attr['submit'] : 'Submit';
+  $message = ( isset( $attr['msg'] ) ) ? $attr['msg'] : 'Updated';
   
   if ( empty( $post_id ) ) {
     $post_id = 'new_post';
@@ -29,11 +33,11 @@ function am_sc_acf_form( $attr ) {
   
   $options = array( 'id' => 'acf_form',
                     'post_id' => $post_id,
-                    'label_placement' => 'left',
+                    'label_placement' => $label,
                     'instruction_placement' => 'field',
                     'new_post' => array( 'post_type' => $cpt, 'post_status' => 'publish'),
                     'submit_value' => $submit,
-                    'updated_message' => __( 'Client Updated', 'acf' ),
+                    'updated_message' => $message,
                     'post_title' => $title,
                     'post_content' => $content,
                     'return' => '%post_url%',
