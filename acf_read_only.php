@@ -1,3 +1,5 @@
+<?php
+
 add_action('acf/render_field_settings/type=text', 'add_readonly_and_disabled_to_text_field');
 
 function add_readonly_and_disabled_to_text_field( $field ) {
